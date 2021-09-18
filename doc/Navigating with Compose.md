@@ -74,12 +74,16 @@ Each destination should have a unique route.
 每个目的地都应该有一条唯一的路线。
 
 Creating the NavHost requires the NavController previously created via rememberNavController() and the route of the starting destination of your graph.
+如需创建 NavHost，您需要使用之前通过 rememberNavController() 创建的 NavController，以及导航图的起始目的地的路线。
 
 NavHost creation uses the lambda syntax from the Navigation Kotlin DSL to construct your navigation graph.
+NavHost 创建使用 Navigation Kotlin DSL 中的 lambda 语法来构建导航图。
 
 You can add to your navigation structure by using the composable() method.
+您可以使用 composable() 方法向导航结构添加内容。
 
 This method requires that you provide a route and the composable that should be linked to the destination:
+此方法需要您提供一个路线以及应关联到相应目的地的可组合项：
 
 NavHost(navController = navController, startDestination = "profile") {
     composable("profile") { Profile(/*...*/) }
@@ -88,16 +92,22 @@ NavHost(navController = navController, startDestination = "profile") {
 }
 
 Note: the Navigation Component requires that you follow the Principles of Navigation and use a fixed starting destination.
+注意：Navigation 组件要求您遵循导航原则并使用固定的起始目的地。
 
 You should not use a composable value for the startDestination route.
+您不应为 startDestination 路线使用可组合项值。
 
 Navigate to a composable
+导航到可组合项
 
 To navigate to a composable destination in the navigation graph, you must use the navigate() method.
+如需导航到导航图中的可组合项目的地，您必须使用 navigate() 方法。
 
 navigate() takes a single String parameter that represents the destination’s route.
+navigate() 接受代表目的地路线的单个 String 参数。
 
 To navigate from a composable within the navigation graph, call navigate():
+如需从导航图中的某个可组合项进行导航，请调用 navigate()：
 
 @Composable
 fun Profile(navController: NavController) {
@@ -109,8 +119,13 @@ fun Profile(navController: NavController) {
 }
 
 You should only call navigate() as part of a callback and not as part of your composable itself, to avoid calling navigate() on every recomposition.
+您应仅在回调中调用 navigate()，而不能在可组合项本身中调用它，以避免每次重组时都调用 navigate()。
 
-By default, navigate() adds your new destination to the back stack. You can modify the behavior of navigate by attaching additional navigation options to our navigate() call:
+By default, navigate() adds your new destination to the back stack.
+默认情况下，navigate() 会将您的新目的地添加到返回堆栈中。
+
+You can modify the behavior of navigate by attaching additional navigation options to our navigate() call:
+您可以通过向我们的 navigate() 调用附加其他导航选项来修改 navigate 的行为：
 
 // Pop everything up to the "home" destination off the back stack before
 // navigating to the "friends" destination
@@ -132,18 +147,32 @@ navController.navigate("search") {
 }
 
 See the popUpTo guide for more use cases.
+如需查看更多用例，请参阅 popUpTo 指南。
 
-Note: The anim block cannot be used with Navigation Compose. Transition Animations in Navigation Compose is being tracked in this feature request.
+Note: The anim block cannot be used with Navigation Compose.
+注意：anim 块不能与 Navigation Compose 一起使用。
+
+Transition Animations in Navigation Compose is being tracked in this feature request.
+系统会在此功能请求中跟踪 Navigation Compose 中的转换动画。
 
 Navigate with arguments
-Navigation compose also supports passing arguments between composable destinations. In order to do this, you need to add argument placeholders to your route, similar to how you add arguments to a deep link when using the base navigation library:
+使用参数进行导航
+
+Navigation compose also supports passing arguments between composable destinations.
+Navigation Compose 还支持在可组合项目的地之间传递参数。
+
+In order to do this, you need to add argument placeholders to your route, similar to how you add arguments to a deep link when using the base navigation library:
+为此，您需要向路线中添加参数占位符，就像在使用基础导航库时向深层链接中添加参数一样。
 
 NavHost(startDestination = "profile/{userId}") {
     ...
     composable("profile/{userId}") {...}
 }
 
-By default, all arguments are parsed as strings. You can specify another type by using the arguments parameter to set a type:
+By default, all arguments are parsed as strings.
+默认情况下，所有参数都会被解析为字符串。
+
+You can specify another type by using the arguments parameter to set a type:
 
 NavHost(startDestination = "profile/{userId}") {
     ...

@@ -382,4 +382,6 @@ composable(
 }
 
 Learn more
+了解详情
+
 To learn more about Jetpack Navigation, see Get started with the Navigation component or take the Jetpack Compose Navigation codelab.
